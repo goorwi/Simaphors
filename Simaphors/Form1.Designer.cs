@@ -31,7 +31,11 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.startButton = new System.Windows.Forms.Button();
             this.breakButton = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.trackBar2 = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -50,9 +54,9 @@
             // startButton
             // 
             this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.startButton.Location = new System.Drawing.Point(12, 359);
+            this.startButton.Location = new System.Drawing.Point(12, 389);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(317, 79);
+            this.startButton.Size = new System.Drawing.Size(250, 79);
             this.startButton.TabIndex = 1;
             this.startButton.Text = "Старт";
             this.startButton.UseVisualStyleBackColor = true;
@@ -61,19 +65,41 @@
             // breakButton
             // 
             this.breakButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.breakButton.Location = new System.Drawing.Point(471, 359);
+            this.breakButton.Location = new System.Drawing.Point(538, 389);
             this.breakButton.Name = "breakButton";
-            this.breakButton.Size = new System.Drawing.Size(317, 79);
+            this.breakButton.Size = new System.Drawing.Size(250, 79);
             this.breakButton.TabIndex = 2;
             this.breakButton.Text = "Стоп";
             this.breakButton.UseVisualStyleBackColor = true;
             this.breakButton.Click += new System.EventHandler(this.breakButton_Click);
             // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(268, 359);
+            this.trackBar1.Maximum = 4;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(264, 56);
+            this.trackBar1.TabIndex = 3;
+            this.trackBar1.Value = 2;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // trackBar2
+            // 
+            this.trackBar2.Location = new System.Drawing.Point(268, 432);
+            this.trackBar2.Maximum = 4;
+            this.trackBar2.Name = "trackBar2";
+            this.trackBar2.Size = new System.Drawing.Size(264, 56);
+            this.trackBar2.TabIndex = 4;
+            this.trackBar2.Value = 2;
+            this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 500);
+            this.Controls.Add(this.trackBar2);
+            this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.breakButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.dataGridView1);
@@ -82,7 +108,10 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -91,6 +120,8 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button breakButton;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar trackBar2;
     }
 }
 

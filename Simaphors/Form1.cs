@@ -18,6 +18,9 @@ namespace Simaphors
         private bool isEven;
         private Thread threadCalculateAndWrite;
         private Thread threadCheckIsEven;
+        private int currentTime = 0;
+        private int threadSleepingDate = 1000;
+        private int threadSleepingEven = 1000;
 
         public Form1()
         {
@@ -37,23 +40,24 @@ namespace Simaphors
                 Console.WriteLine("CalculateAndWrite ожидает");
                 semaphore.WaitOne();
                 Console.WriteLine("CalculateAndWrite выполняется");
-                DateTime currentTime = DateTime.Now;
+                DateTime time = DateTime.Now;
                 dataGridView1.Invoke(new Action(() =>
                 {
-                    dataGridView1.Rows.Add(currentTime.ToString("HH:mm:ss"));
+                    dataGridView1.Rows.Add(time.ToString("HH:mm:ss"));
                 }));
 
                 if (dataGridView1.Rows.Count > 0)
                 {
-                    int sum = currentTime.Hour + currentTime.Minute + currentTime.Second;
+                    int sum = time.Hour + time.Minute + time.Second;
 
                     dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["Amount"].Value = sum.ToString();
+                    if (currentTime == 0) currentTime = dataGridView1.Rows.Count - 1;
                 }
 
                 semaphore.Release();
                 Console.WriteLine("CalculateAndWrite выполнился");
 
-                Thread.Sleep(1000);
+                Thread.Sleep(threadSleepingDate);
             }
         }
 
@@ -65,15 +69,16 @@ namespace Simaphors
                 semaphore.WaitOne();
                 Console.WriteLine("IsEven выполняется");
 
-                if (dataGridView1.Rows.Count > 0)
+                if (dataGridView1.Rows.Count > 0 && dataGridView1.Rows.Count > currentTime)
                 {
-                    dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["IsEven"].Value = (int.Parse(dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells["Amount"].Value.ToString()) % 2 == 0);
+                    dataGridView1.Rows[currentTime].Cells["IsEven"].Value = (int.Parse(dataGridView1.Rows[currentTime].Cells["Amount"].Value.ToString()) % 2 == 0);
+                    currentTime++;
                 }
 
                 semaphore.Release();
                 Console.WriteLine("IsEven выполнился");
 
-                Thread.Sleep(1000);
+                Thread.Sleep(threadSleepingEven);
             }
         }
 
@@ -111,6 +116,69 @@ namespace Simaphors
             {
                 threadCalculateAndWrite.Abort();
                 threadCheckIsEven.Abort();
+            }
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            switch (trackBar2.Value) {
+                case 0:
+                    {
+                        threadSleepingEven = 1800;
+                        break;
+                    }
+                case 1:
+                    {
+                        threadSleepingEven = 1400;
+                        break;
+                    }
+                case 2:
+                    {
+                        threadSleepingEven = 1000;
+                        break;
+                    }
+                case 3:
+                    {
+                        threadSleepingEven = 600;
+                        break;
+                    }
+                case 4:
+                    {
+                        threadSleepingEven = 200;
+                        break;
+                    }
+            }
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            switch (trackBar1.Value)
+            {
+                case 0:
+                    {
+                        threadSleepingDate = 1800;
+                        break;
+                    }
+                case 1:
+                    {
+                        threadSleepingDate = 1400;
+                        break;
+                    }
+                case 2:
+                    {
+                        threadSleepingDate = 1000;
+                        break;
+                    }
+                case 3:
+                    {
+                        threadSleepingDate = 600;
+                        break;
+                    }
+                case 4:
+                    {
+                        threadSleepingDate = 200;
+                        break;
+                    }
             }
         }
     }
